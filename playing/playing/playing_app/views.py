@@ -69,6 +69,7 @@ def todo_edit(request):
             
             return redirect("list")
     else:
+        
         return render(request,"playing_app/form.html",context)
             
             
@@ -96,9 +97,9 @@ def create_responsible(request):
             return redirect("responsible")
             
     else:
-        
+        responsibles = Responsible.objects.all()
         form = CreateResponsibleForm()
-        context = {"form": form, "create": True}
+        context = {"form": form, "create": True,"responsibles":responsibles}
         return render(request,"playing_app/responsibles.html",context)
         
         
