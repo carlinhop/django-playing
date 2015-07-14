@@ -20,13 +20,19 @@ def todo_create(request):
         
         
         
+        
         if form.is_valid():
             todo = form.save(commit = False)
             
             
             todo.save()
-            responsible = Responsible.objects.get(pk = request.POST.get("todo_responsibles"))
-            todo.todo_responsibles.add(responsible)
+            responsibles = request.POST.getlist("todo_responsibles")
+            for id in responsibles:
+                
+                people = Responsible.objects.get(pk = int(id))
+            
+            
+                todo.todo_responsibles.add(people)
             
             
             return redirect("list")
@@ -53,6 +59,7 @@ def todo_edit(request):
     
     context = {"form":form, "id":todo_id}
     if request.method == "POST":
+        
         form = CreateTodoForm(data = request.POST)
         
         
@@ -62,9 +69,14 @@ def todo_edit(request):
             todo.id = todo_id
             
             todo.save()
-       
-            responsible = Responsible.objects.get(pk = request.POST.get("todo_responsibles"))
-            todo.todo_responsibles.add(responsible)
+            
+            responsibles = request.POST.getlist("todo_responsibles")
+            for id in responsibles:
+                
+                people = Responsible.objects.get(pk = int(id))
+            
+            
+                todo.todo_responsibles.add(people)
             
             
             return redirect("list")
