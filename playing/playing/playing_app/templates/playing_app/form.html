@@ -1,0 +1,38 @@
+{% extends "playing_app/todo_template.html" %}
+
+    {% block content %}
+    
+    
+    <div class="row">
+          <div class="col-md-4"></div>
+          <div class="col-md-4">   
+              <h1>Add a new one</h1>
+              <form action="{{action_url}}" method="POST">
+                    {% csrf_token %}
+                      
+                     
+                      
+                    {{form}}
+                    
+                        
+                    <input class="btn btn-default" type="submit" value="Submit"/>
+                        
+                    
+                    <input  type = "hidden" name="id" value={{id}}>
+                        
+                </form>
+            </div>
+          <div class="col-md-4">
+              
+                {% block extra %}
+    
+                {% endblock %}
+              
+          </div>
+    
+
+            
+    </div>    
+
+    {% endblock %}
+    
