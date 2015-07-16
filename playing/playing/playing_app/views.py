@@ -69,7 +69,7 @@ def todo_edit(request):
             todo.id = todo_id
             
             todo.save()
-            
+            todo.todo_responsibles.clear()
             responsibles = request.POST.getlist("todo_responsibles")
             for id in responsibles:
                 
