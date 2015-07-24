@@ -13,5 +13,5 @@ class Responsible(models.Model):
 class Todo(models.Model):
     todo_text = models.CharField(max_length = 200)
     todo_done = models.BooleanField()
-    todo_created = models.DateField(auto_now = True)
+    todo_created = models.DateField()
     todo_responsibles = models.ManyToManyField(Responsible)

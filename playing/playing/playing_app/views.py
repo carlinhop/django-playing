@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.views.generic import ListView
 from django.core.urlresolvers import reverse
 from .models import Todo,Responsible
-from .forms import CreateTodoForm,CreateResponsibleForm
+from .forms import CreateTodoForm,CreateResponsibleForm,Login
 
 
 def todo_list_view(request):
@@ -53,7 +53,7 @@ def todo_edit(request):
         print("OK")
     else:
         print("no responsibles found")
-    data = {"todo_text":Todo.objects.get(id = todo_id).todo_text,"todo_responsibles":Todo.objects.get(pk = todo_id).todo_responsibles.all()}
+    data = {"todo_text":Todo.objects.get(id = todo_id).todo_text,"todo_responsibles":Todo.objects.get(pk = todo_id).todo_responsibles.all(),"todo_created":Todo.objects.get(id = todo_id).todo_created}
     
     form = CreateTodoForm(data)
     
@@ -70,6 +70,7 @@ def todo_edit(request):
             
             todo.save()
             
+            todo.todo_responsibles.clear()
             responsibles = request.POST.getlist("todo_responsibles")
             for id in responsibles:
                 
@@ -127,3 +128,9 @@ def delete_responsible(request):
         return redirect("responsible")
     else:
         return redirect("responsible")
+
+
+def login(request):
+    form = Login()
+    context = {"form":form}
+    return render(request,"playing_app/login.html",context)

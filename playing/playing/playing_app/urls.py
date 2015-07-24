@@ -11,4 +11,5 @@ urlpatterns = [
     url(r'^delete',views.todo_delete, name = "delete"),
     url(r'^responsible',views.create_responsible, name = "responsible"),
     url(r'^removeres$',views.delete_responsible, name = "delete-responsible"),
+    url(r'^login$',views.login, name = "login")
 ]

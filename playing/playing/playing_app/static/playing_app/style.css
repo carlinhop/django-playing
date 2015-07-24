@@ -1,0 +1,17 @@
+
+
+body {font-family: 'Montserrat', sans-serif;}
+
+.barra {background-color:#380036;
+        
+}
+
+.navbar-default .navbar-nav>li>a {color: white;}
+
+.navbar-default .navbar-brand {color:white;}
+
+th {color: #a2d3c2;
+    font-size: 20px;
+}
+
+.errorlist {display:none;}
