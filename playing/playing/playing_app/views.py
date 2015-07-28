@@ -2,8 +2,11 @@ from django.shortcuts import render, redirect,get_object_or_404
 from django.http import HttpResponseRedirect, HttpResponse
 from django.views.generic import ListView
 from django.core.urlresolvers import reverse
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate
 from .models import Todo,Responsible
 from .forms import CreateTodoForm,CreateResponsibleForm,Login
+
 
 
 def todo_list_view(request):
@@ -131,6 +134,16 @@ def delete_responsible(request):
 
 
 def login(request):
-    form = Login()
-    context = {"form":form}
-    return render(request,"playing_app/login.html",context)
+    if request.method == "POST":
+        form = Login(data = request.POST)
+        if form.is_valid:
+            
+            
+            user = User.objects.create_user(username=request.POST["username"],password = request.POST["password"])
+            user.save()
+            print(user)
+            return redirect("list")
+    else:
+        form = Login()
+        context = {"form":form,"create":True}
+        return render(request,"playing_app/login.html",context)

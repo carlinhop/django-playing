@@ -19,7 +19,8 @@ class CreateResponsibleForm(forms.ModelForm):
 
 class Login(forms.Form):
     username = forms.CharField(label = "Username", max_length = 20)
-    password = forms.CharField(label = "Password", max_length = 10)
+    password = forms.CharField(label = "Password", max_length = 10, widget=forms.PasswordInput)
+    
     
         
    

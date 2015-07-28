@@ -10,7 +10,21 @@
     <body>
          <div class="col-md-4"></div>
              <div class="col-md-4">
-                {{form|crispy}}
+                 
+                <form action="{{action_url}}" method="POST">
+                    {% csrf_token %}
+                      
+                     
+                    {{form | crispy}}
+
+                    <input class="btn btn-default" type="submit" value="Submit"/>
+                        
+
+                </form>
+                
+                
+                
+                
             </div>
          <div class="col-md-4"></div>
     </body>
