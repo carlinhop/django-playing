@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.views.generic import ListView
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, login,logout
 from .models import Todo,Responsible
 from .forms import CreateTodoForm,CreateResponsibleForm,Login
 
@@ -13,6 +13,9 @@ def todo_list_view(request):
     todos = Todo.objects.all()
     
     context = {"todos": todos}
+    user = request.user
+    if user.is_authenticated():
+        context["user"] = user.get_username()
     return render(request, "playing_app/todo_template.html",context)
     
 
@@ -133,17 +136,53 @@ def delete_responsible(request):
         return redirect("responsible")
 
 
-def login(request):
+def login_user(request):
     if request.method == "POST":
         form = Login(data = request.POST)
-        if form.is_valid:
-            
-            
-            user = User.objects.create_user(username=request.POST["username"],password = request.POST["password"])
-            user.save()
-            print(user)
-            return redirect("list")
+        context = {"form":form,"create":True}
+        username = request.POST["username"]
+        password = request.POST["password"]
+        user = authenticate(username=username, password=password)
+        
+        if user is not None:
+            if user.is_active:
+                login(request, user)
+                return redirect("list")
+        else:
+            return HttpResponse("User not registered")
+        
     else:
         form = Login()
         context = {"form":form,"create":True}
         return render(request,"playing_app/login.html",context)
+        
+
+
+def logout_user(request):
+    logout(request)
+    print(request)
+    return redirect("login")
+
+
+
+def register(request):
+    if request.method == "POST":
+        form = Login(data = request.POST)
+        if form.is_valid:
+            user = User.objects.filter(username = request.POST["username"])
+            
+            if not user:
+                user = User.objects.create_user(username=request.POST["username"],password = request.POST["password"])
+                user.save()
+                login_user(request)
+                return redirect("list")
+            else:
+                return HttpResponse("User already registered")
+    else:
+        form = Login()
+        context = {"form":form,"create":True}
+        return render(request,"playing_app/login.html",context)
+
+
+
+        
