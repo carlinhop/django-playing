@@ -10,10 +10,11 @@ from .forms import CreateTodoForm,Login
 
 
 def todo_list_view(request):
-    todos = Todo.objects.all()
+    user = request.user
+    todos = Todo.objects.all().filter(todo_responsibles__username=user)
     
     context = {"todos": todos}
-    user = request.user
+    
     if user.is_authenticated():
         context["user"] = user.get_username()
         return render(request, "playing_app/todo_template.html",context)
