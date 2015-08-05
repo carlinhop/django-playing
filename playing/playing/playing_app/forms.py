@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import widgets
-from .models import Todo,Responsible
+from .models import Todo
 
 
 class CreateTodoForm(forms.ModelForm):
@@ -10,10 +10,7 @@ class CreateTodoForm(forms.ModelForm):
         widgets = {"todo_responsibles" : widgets.CheckboxSelectMultiple(), "todo_created": widgets.DateInput()}
                
         
-class CreateResponsibleForm(forms.ModelForm):
-    class Meta:
-        model = Responsible
-        fields = ["responsible_name"]
+
         
         
 

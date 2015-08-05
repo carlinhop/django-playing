@@ -4,8 +4,8 @@ from django.views.generic import ListView
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login,logout
-from .models import Todo,Responsible
-from .forms import CreateTodoForm,CreateResponsibleForm,Login
+from .models import Todo
+from .forms import CreateTodoForm,Login
 
 
 
@@ -16,8 +16,9 @@ def todo_list_view(request):
     user = request.user
     if user.is_authenticated():
         context["user"] = user.get_username()
-    return render(request, "playing_app/todo_template.html",context)
-    
+        return render(request, "playing_app/todo_template.html",context)
+    else:
+        return redirect("login")
 
 
 def todo_create(request):
@@ -35,7 +36,7 @@ def todo_create(request):
             responsibles = request.POST.getlist("todo_responsibles")
             for id in responsibles:
                 
-                people = Responsible.objects.get(pk = int(id))
+                people = User.objects.get(pk = int(id))
             
             
                 todo.todo_responsibles.add(people)
@@ -59,7 +60,7 @@ def todo_edit(request):
         print("OK")
     else:
         print("no responsibles found")
-    data = {"todo_text":Todo.objects.get(id = todo_id).todo_text,"todo_responsibles":Todo.objects.get(pk = todo_id).todo_responsibles.all(),"todo_created":Todo.objects.get(id = todo_id).todo_created}
+    data = {"todo_text":Todo.objects.get(id = todo_id).todo_text,"todo_responsibles":Todo.objects.get(id = todo_id).todo_responsibles.all(),"todo_created":Todo.objects.get(id = todo_id).todo_created}
     
     form = CreateTodoForm(data)
     
@@ -80,7 +81,7 @@ def todo_edit(request):
             responsibles = request.POST.getlist("todo_responsibles")
             for id in responsibles:
                 
-                people = Responsible.objects.get(pk = int(id))
+                people = User.objects.get(pk = int(id))
             
             
                 todo.todo_responsibles.add(people)
@@ -107,33 +108,7 @@ def todo_delete(request):
     
 
 
-def create_responsible(request):
-    if request.method == "POST":
-        form = CreateResponsibleForm(data = request.POST)
-        if form.is_valid():
-            responsible = form.save(commit = False)
-            responsible.save()
-            return redirect("responsible")
-            
-    else:
-        responsibles = Responsible.objects.all()
-        form = CreateResponsibleForm()
-        context = {"form": form, "create": True,"responsibles":responsibles}
-        return render(request,"playing_app/responsibles.html",context)
-        
-        
 
-def delete_responsible(request):
-
-    if request.method == "POST":
-        responsible_id = request.POST.get("id")
-        responsible = Responsible.objects.filter(pk = responsible_id)
-        print(responsible_id)
-        responsible.delete()
-        
-        return redirect("responsible")
-    else:
-        return redirect("responsible")
 
 
 def login_user(request):

@@ -15,3 +15,5 @@ th {color: #a2d3c2;
 }
 
 .errorlist {display:none;}
+
+list-group-item active {vertical-align: middle}

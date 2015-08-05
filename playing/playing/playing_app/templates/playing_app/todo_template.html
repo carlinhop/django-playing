@@ -42,7 +42,7 @@
       </ul>
       <ul class="nav navbar-nav">
         
-        <li><a href="{% url 'responsible' %}">Responsibles</a></li>
+        <li><a href=#>Responsibles</a></li>
         
       </ul>
       <form class="navbar-form navbar-left" role="search">
@@ -99,7 +99,7 @@
       <td>
       {% if todo.todo_responsibles.all%}
         {%for responsible in todo.todo_responsibles.all%}
-        {{responsible.responsible_name}}
+        {{responsible.username}}
         {%endfor%}
       
       {%else%}
