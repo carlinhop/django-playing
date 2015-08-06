@@ -6,8 +6,8 @@
   <link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
   {% load staticfiles %}
   <link rel="stylesheet" type="text/css" href="{% static 'playing_app/style.css' %}" />
-  
-  
+  <script src="{% static 'playing_app/bower_components/jquery/dist/jquery.js' %}"> </script>
+  <script src="{% static 'playing_app/todo_template.js' %}"> </script>
   
   
   
@@ -84,7 +84,7 @@
   <tr>
     
      
-      <td> <a href="{% url 'edit' %}?id={{todo.id}}">{{todo.todo_text}} </a></td>
+      <td class= "todo"> <a href="{% url 'edit' %}?id={{todo.id}}">{{todo.todo_text}} </a></td>
       
       {%if todo.todo_done%}
         <td><span class="glyphicon glyphicon-ok" aria-hidden="true"></span></td>
