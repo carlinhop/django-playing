@@ -1,11 +1,14 @@
 from django.shortcuts import render, redirect,get_object_or_404
+from django.conf import settings   
 from django.http import HttpResponseRedirect, HttpResponse
+from django.core.mail import send_mail
 from django.views.generic import ListView
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login,logout
 from .models import Todo
-from .forms import CreateTodoForm,Login
+from .forms import CreateTodoForm,LoginForm,RegisterForm
+
 
 
 
@@ -114,7 +117,7 @@ def todo_delete(request):
 
 def login_user(request):
     if request.method == "POST":
-        form = Login(data = request.POST)
+        form = LoginForm(data = request.POST)
         context = {"form":form,"create":True}
         username = request.POST["username"]
         password = request.POST["password"]
@@ -128,7 +131,7 @@ def login_user(request):
             return HttpResponse("User not registered")
         
     else:
-        form = Login()
+        form = LoginForm()
         context = {"form":form,"create":True}
         return render(request,"playing_app/login.html",context)
         
@@ -143,19 +146,21 @@ def logout_user(request):
 
 def register(request):
     if request.method == "POST":
-        form = Login(data = request.POST)
+        form = RegisterForm(data = request.POST)
         if form.is_valid:
             user = User.objects.filter(username = request.POST["username"])
             
             if not user:
                 user = User.objects.create_user(username=request.POST["username"],password = request.POST["password"])
                 user.save()
+                
+                send_mail('You have been registered!!!', 'yuujiiiiiii', settings.EMAIL_HOST_USER,[request.POST['email']], fail_silently=False)
                 login_user(request)
                 return redirect("list")
             else:
                 return HttpResponse("User already registered")
     else:
-        form = Login()
+        form = RegisterForm()
         context = {"form":form,"create":True}
         return render(request,"playing_app/login.html",context)
 

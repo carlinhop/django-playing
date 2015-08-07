@@ -14,10 +14,13 @@ class CreateTodoForm(forms.ModelForm):
         
         
 
-class Login(forms.Form):
+class RegisterForm(forms.Form):
     username = forms.CharField(label = "Username", max_length = 20)
     password = forms.CharField(label = "Password", max_length = 10, widget=forms.PasswordInput)
+    email = forms.CharField(label = "email", max_length = 20, widget = forms.EmailInput)
     
     
         
-   
+class LoginForm(forms.Form):
+    username = forms.CharField(label = "Username", max_length = 20)
+    password = forms.CharField(label = "Password", max_length = 10, widget=forms.PasswordInput)   

@@ -105,3 +105,13 @@ STATIC_URL = '/static/'
 
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
+
+#For email
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'carlinhop@gmail.com'
+EMAIL_HOST_PASSWORD = 'nynnmdyzsxrrshfw'
+DEFAULT_FROM_EMAIL = 'my gmail account'
+DEFAULT_TO_EMAIL = 'carlinhop@gmail.com'
