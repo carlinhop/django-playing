@@ -1,11 +1,12 @@
 from django.shortcuts import render, redirect,get_object_or_404
 from django.conf import settings   
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.core.mail import send_mail
 from django.views.generic import ListView
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login,logout
+from django.core import serializers
 from .models import Todo
 from .forms import CreateTodoForm,LoginForm,RegisterForm
 
@@ -166,4 +167,8 @@ def register(request):
 
 
 
-        
+def get_users(request):
+    #You have to convert it to a list to avoid the 20 record limit
+    users = list(User.objects.values("username"))
+    
+    return JsonResponse(users, safe = False)

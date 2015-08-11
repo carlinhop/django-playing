@@ -7,6 +7,7 @@
   {% load staticfiles %}
   <link rel="stylesheet" type="text/css" href="{% static 'playing_app/style.css' %}" />
   <script src="{% static 'playing_app/bower_components/jquery/dist/jquery.js' %}"> </script>
+  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
   <script src="{% static 'playing_app/todo_template.js' %}"> </script>
   
   
@@ -43,10 +44,13 @@
       
       <form class="navbar-form navbar-left" role="search">
         <div class="form-group">
-          <input type="text" class="form-control" placeholder="Todavia no sirve">
+          <input type="text" class="form-control search" placeholder="Todavia no sirve">
         </div>
         <button type="submit" class="btn btn-default">Submit</button>
       </form>
+      
+
+      
       <ul class="nav navbar-nav navbar-right">
         <li><a href="logout">Logout</a></li>
         
@@ -116,7 +120,7 @@
 {% endblock %}
 
 
-
+<div class = "options-test"></div>
 
 </body>
 
