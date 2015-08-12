@@ -11,7 +11,7 @@ function changeBackgroundOn(){$(this).css("background-color","#a2d3c2")}
 
 function changeBackgroundOoff(){$(this).css("background-color","white")}
 
-//This function gets all users from the db and shows them in the console--Practicing ajax
+//This function gets all users from the db and shows them--Practicing ajax
 function test(){  $.get( "http://development-carlinhop.c9.io/home/users", function( data ) {
                   $(".search").val("Hola");
                   var usernames = data;

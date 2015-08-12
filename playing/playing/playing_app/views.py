@@ -118,6 +118,7 @@ def todo_delete(request):
 
 def login_user(request):
     if request.method == "POST":
+        print(request)
         form = LoginForm(data = request.POST)
         context = {"form":form,"create":True}
         username = request.POST["username"]

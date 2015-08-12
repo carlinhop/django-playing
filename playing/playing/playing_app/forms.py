@@ -2,12 +2,15 @@ from django import forms
 from django.forms import widgets
 from .models import Todo
 
+class DateTypeInput(forms.DateInput):
+    input_type = "date"
+
 
 class CreateTodoForm(forms.ModelForm):
     class Meta:
         model = Todo
         fields = ["todo_text", "todo_done", "id", "todo_responsibles","todo_created"]
-        widgets = {"todo_responsibles" : widgets.CheckboxSelectMultiple(), "todo_created": widgets.DateInput()}
+        widgets = {"todo_responsibles" : widgets.CheckboxSelectMultiple(), "todo_created": DateTypeInput()}
                
         
 

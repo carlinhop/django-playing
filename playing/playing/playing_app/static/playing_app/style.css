@@ -17,3 +17,5 @@ th {color: #a2d3c2;
 .errorlist {display:none;}
 
 list-group-item active {vertical-align: middle}
+
+.vertical_line {border-left: thin solid white;}
