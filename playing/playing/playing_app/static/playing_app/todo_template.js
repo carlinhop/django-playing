@@ -1,9 +1,11 @@
 
 $(document).ready(function(){
 
-   $(".todo").hover(changeBackgroundOn,changeBackgroundOoff);
+   //$(".todo").hover(changeBackgroundOn,changeBackgroundOoff);
    
-   $(".search").focusin();
+   $(".glyphicon").hover(changeGlyphiconOn,changeGlyphiconOff);
+   $(".form-group").hover(editFieldOn,editFieldOff);
+   
 
 });
 
@@ -20,3 +22,23 @@ function test(){  $.get( "http://development-carlinhop.c9.io/home/users", functi
                   });}
 
 
+function changeGlyphiconOn()
+{
+   $(this).removeClass("glyphicon-remove").addClass("glyphicon-ok");
+}
+
+
+function changeGlyphiconOff()
+{
+   $(this).removeClass("glyphicon-ok").addClass("glyphicon-remove");
+}
+
+function editFieldOn()
+{
+   $("i").addClass("form-control-feedback glyphicon glyphicon-pencil");
+}
+
+function editFieldOff()
+{
+   $("i").removeClass("form-control-feedback glyphicon glyphicon-pencil");
+}

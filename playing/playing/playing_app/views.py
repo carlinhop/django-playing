@@ -39,6 +39,9 @@ def todo_create(request):
             
             todo.save()
             responsibles = request.POST.getlist("todo_responsibles")
+            default_user = User.objects.get(username = request.user)
+            todo.todo_responsibles.add(default_user)
+            
             for id in responsibles:
                 
                 people = User.objects.get(pk = int(id))
@@ -130,7 +133,7 @@ def login_user(request):
                 login(request, user)
                 return redirect("list")
         else:
-            return HttpResponse("User not registered")
+            return HttpResponse("User not registered, <a href="">Did you forget your password</a>")
         
     else:
         form = LoginForm()
@@ -169,7 +172,12 @@ def register(request):
 
 
 def get_users(request):
+    """This is for getting all the users in JSON format"""
     #You have to convert it to a list to avoid the 20 record limit
     users = list(User.objects.values("username"))
     
     return JsonResponse(users, safe = False)
+    
+    
+def reset_password(request):
+    pass

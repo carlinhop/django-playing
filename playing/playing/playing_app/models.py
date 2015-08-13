@@ -7,6 +7,6 @@ from django.contrib.auth.models import User
 
 class Todo(models.Model):
     todo_text = models.CharField(max_length = 200)
-    todo_done = models.BooleanField()
-    todo_created = models.DateField()
+    todo_done = models.NullBooleanField(null = True)
+    todo_created = models.DateField(null = True)
     todo_responsibles = models.ManyToManyField(User)
