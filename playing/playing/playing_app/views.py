@@ -8,7 +8,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login,logout
 from django.core import serializers
 from .models import Todo
-from .forms import CreateTodoForm,LoginForm,RegisterForm
+from .forms import CreateTodoForm,LoginForm,RegisterForm,GetResetPasswordLink,ResetPassword
 
 
 
@@ -133,7 +133,7 @@ def login_user(request):
                 login(request, user)
                 return redirect("list")
         else:
-            return HttpResponse("User not registered, <a href="">Did you forget your password</a>")
+            return redirect("reset_link")
         
     else:
         form = LoginForm()
@@ -156,7 +156,7 @@ def register(request):
             user = User.objects.filter(username = request.POST["username"])
             
             if not user:
-                user = User.objects.create_user(username=request.POST["username"],password = request.POST["password"])
+                user = User.objects.create_user(username=request.POST["username"],password = request.POST["password"],email = request.POST["email"])
                 user.save()
                 
                 send_mail('You have been registered!!!', 'yuujiiiiiii', settings.EMAIL_HOST_USER,[request.POST['email']], fail_silently=False)
@@ -177,7 +177,41 @@ def get_users(request):
     users = list(User.objects.values("username"))
     
     return JsonResponse(users, safe = False)
-    
-    
+
+
 def reset_password(request):
-    pass
+    if request.method == "POST":
+        user = User.objects.filter(email = request.POST.get("email",""))
+        
+        if user:
+            form = ResetPassword(data = request.POST)
+            if form.is_valid:
+                user[0].set_password(request.POST.get("password",""))
+                user[0].save()
+                
+                return redirect("login")
+    else:
+        email = request.GET.get("email","")
+        data = {"email":email}
+        form = ResetPassword(data)
+        context = {"form":form,"create":True}
+        return render(request,"playing_app/login.html",context)
+
+    
+def get_reset_password_link(request):
+    if request.method == "POST":
+        
+        form = GetResetPasswordLink(data = request.POST)
+        if form.is_valid:
+            user = User.objects.filter(email = request.POST["email"])
+            
+            if user:
+                
+                send_mail("Reset your password", "http://development-carlinhop.c9.io/home/reset-password?email="+str(user[0].email ), settings.EMAIL_HOST_USER,[request.POST["email"]], fail_silently=False)
+                return HttpResponse("Check your email buddy")
+        else:
+            return HttpResponse("User not registered")
+    else:
+        form = GetResetPasswordLink()
+        context = {"form":form,"create":True}
+        return render(request,"playing_app/login.html",context)

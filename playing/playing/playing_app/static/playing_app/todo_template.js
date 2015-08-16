@@ -5,7 +5,7 @@ $(document).ready(function(){
    
    $(".glyphicon").hover(changeGlyphiconOn,changeGlyphiconOff);
    $(".form-group").hover(editFieldOn,editFieldOff);
-   
+   $(".form-group").click(function(){$(this).prop('disabled', false)});
 
 });
 
