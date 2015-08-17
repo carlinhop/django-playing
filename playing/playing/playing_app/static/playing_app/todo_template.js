@@ -3,7 +3,18 @@ $(document).ready(function(){
 
    //$(".todo").hover(changeBackgroundOn,changeBackgroundOoff);
    
-   $(".glyphicon").hover(changeGlyphiconOn,changeGlyphiconOff);
+   $(".glyphicon").click(function()
+   {
+      if ($(this).hasClass("glyphicon-remove"))
+      {
+         changeGlyphiconOn($(this));
+      }
+      
+      else
+      {
+         changeGlyphiconOff($(this));
+      }
+   });
    $(".form-group").hover(editFieldOn,editFieldOff);
    $(".form-group").click(function(){$(this).prop('disabled', false)});
 
@@ -22,15 +33,22 @@ function test(){  $.get( "http://development-carlinhop.c9.io/home/users", functi
                   });}
 
 
-function changeGlyphiconOn()
+function changeGlyphiconOn(element)
 {
-   $(this).removeClass("glyphicon-remove").addClass("glyphicon-ok");
+   element.removeClass("glyphicon-remove").addClass("glyphicon-ok");
+   
+   var element_id = element.attr("id");
+   
+   $("."+element_id).css("text-decoration", "line-through");
 }
 
 
-function changeGlyphiconOff()
+function changeGlyphiconOff(element)
 {
-   $(this).removeClass("glyphicon-ok").addClass("glyphicon-remove");
+   element.removeClass("glyphicon-ok").addClass("glyphicon-remove");
+      var element_id = element.attr("id");
+   
+   $("."+element_id).css("text-decoration", "none");
 }
 
 function editFieldOn()
