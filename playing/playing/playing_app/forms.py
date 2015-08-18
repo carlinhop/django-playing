@@ -13,7 +13,11 @@ class CreateTodoForm(forms.ModelForm):
         widgets = {"todo_responsibles" : widgets.CheckboxSelectMultiple(), "todo_created": DateTypeInput()}
                
         
-
+class CreateEasyTodoForm(forms.ModelForm):
+    class Meta:
+        model = Todo
+        fields = ["todo_text"]
+        
         
         
 

@@ -8,22 +8,40 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login,logout
 from django.core import serializers
 from .models import Todo
-from .forms import CreateTodoForm,LoginForm,RegisterForm,GetResetPasswordLink,ResetPassword
+from .forms import CreateTodoForm,CreateEasyTodoForm,LoginForm,RegisterForm,GetResetPasswordLink,ResetPassword
 
 
 
 
 def todo_list_view(request):
     user = request.user
-    todos = Todo.objects.all().filter(todo_responsibles__username=user)
-    
-    context = {"todos": todos}
-    
-    if user.is_authenticated():
-        context["user"] = user.get_username()
-        return render(request, "playing_app/todo_template.html",context)
+    if request.method == "POST":
+        if user.is_authenticated():
+            form = CreateEasyTodoForm(data = request.POST)
+            
+            if form.is_valid():
+                todo = form.save(commit = False)
+                default_user = User.objects.get(username = user)
+                todo.save()
+                
+                todo.todo_responsibles.add(default_user)
+                todo.save()
+                return redirect("list")
+            else:
+                return HttpResponse("not working")
+            
+                
     else:
-        return redirect("login")
+        
+        todos = Todo.objects.all().filter(todo_responsibles__username=user)
+        
+        context = {"todos": todos}
+        
+        if user.is_authenticated():
+            context["user"] = user.get_username()
+            return render(request, "playing_app/todo_template.html",context)
+        else:
+            return redirect("login")
 
 
 def todo_create(request):
