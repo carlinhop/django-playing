@@ -171,12 +171,6 @@ def register(request):
 
 
 
-def get_users(request):
-    """This is for getting all the users in JSON format"""
-    #You have to convert it to a list to avoid the 20 record limit
-    users = list(User.objects.values("username"))
-    
-    return JsonResponse(users, safe = False)
 
 
 def reset_password(request):
@@ -215,3 +209,14 @@ def get_reset_password_link(request):
         form = GetResetPasswordLink()
         context = {"form":form,"create":True}
         return render(request,"playing_app/login.html",context)
+        
+        
+        
+#JSON views to serve AJAX
+
+def get_users(request):
+    """This is for getting all the users in JSON format"""
+    #You have to convert it to a list to avoid the 20 record limit
+    users = list(User.objects.values("username"))
+    
+    return JsonResponse(users, safe = False)

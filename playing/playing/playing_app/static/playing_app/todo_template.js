@@ -8,6 +8,7 @@ $(document).ready(function(){
       if ($(this).hasClass("glyphicon-remove"))
       {
          changeGlyphiconOn($(this));
+         
       }
       
       else
