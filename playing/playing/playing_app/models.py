@@ -10,4 +10,5 @@ class Todo(models.Model):
     todo_text = models.CharField(max_length = 200)
     todo_done = models.NullBooleanField(null = True)
     todo_created = models.DateField(null = True,default = timezone.now())
-    todo_responsibles = models.ManyToManyField(User)
+    todo_responsibles = models.ManyToManyField(User, null= True)
+

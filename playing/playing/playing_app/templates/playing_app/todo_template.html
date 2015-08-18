@@ -6,9 +6,7 @@
   <link href='http://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
   {% load staticfiles %}
   <link rel="stylesheet" type="text/css" href="{% static 'playing_app/style.css' %}" />
-  <script src="{% static 'playing_app/bower_components/jquery/dist/jquery.js' %}"> </script>
-  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-  <script src="{% static 'playing_app/todo_template.js' %}"> </script>
+  
   
   
   
@@ -42,10 +40,11 @@
         
       </ul>
       
-      <form class="navbar-form navbar-left" role="search">
+      <form class="navbar-form navbar-left" action="{% url 'list' %}" method="POST">
+        {% csrf_token %}
         <div class="form-group has-feedback has-feedback-left">
           <i></i>
-          <input type="text" class="form-control search" placeholder="Todavia no sirve" >
+          <input type="text" class="form-control search" placeholder="Add a new todo" name = "todo_text" >
           
         </div>
         <button type="submit" class="btn btn-default">+</button>
@@ -121,6 +120,13 @@
 
 
 <div class = "options-test"></div>
+
+
+
+
+<script src="{% static 'playing_app/bower_components/jquery/dist/jquery.js' %}"> </script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<script src="{% static 'playing_app/todo_template.js' %}"> </script>
 
 </body>
 
