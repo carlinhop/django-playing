@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect,get_object_or_404
+
 from django.conf import settings   
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.core.mail import send_mail
@@ -238,3 +239,19 @@ def get_users(request):
     users = list(User.objects.values("username"))
     
     return JsonResponse(users, safe = False)
+
+def todo_done_AJAX(request):
+    if request.method == "POST":
+        id = request.POST["id"]
+        todo = Todo.objects.get(pk = id)
+        if todo.todo_done==False:
+            todo.todo_done = True
+            todo.save()
+            return HttpResponse()
+        else:
+            todo.todo_done = False
+            todo.save()
+            return HttpResponse()
+            
+    
+        

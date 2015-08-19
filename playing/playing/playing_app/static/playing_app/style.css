@@ -19,3 +19,5 @@ th {color: #a2d3c2;
 list-group-item active {vertical-align: middle}
 
 .vertical_line {border-left: thin solid white;}
+
+.done{text-decoration:line-through;}

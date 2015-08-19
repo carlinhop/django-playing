@@ -17,5 +17,6 @@ urlpatterns = [
     url(r'^users',views.get_users, name = "users"),
     url(r'^reset-link$',views.get_reset_password_link, name = "reset_link"),
     url(r'^reset-password',views.reset_password, name = "reset_password"),
+    url(r'^todo-done',views.todo_done_AJAX, name ="todo-done"),
     
 ]

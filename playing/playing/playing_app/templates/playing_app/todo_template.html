@@ -87,12 +87,14 @@
   <tr>
     
      
-      <td class= "todo {{todo.id}}"> <a href="{% url 'edit' %}?id={{todo.id}}">{{todo.todo_text}} </a></td>
+      
       
       {%if todo.todo_done%}
-        <td><span class="glyphicon glyphicon-ok"  id = "{{todo.id}}" aria-hidden="true"></span></td>
+        <td class= "todo {{todo.id}} done"> <a href="{% url 'edit' %}?id={{todo.id}}">{{todo.todo_text}} </a></td>
+        <td><form action = "." method = "POST">{% csrf_token %}<span class="glyphicon glyphicon-ok"  id = "{{todo.id}}" aria-hidden="true"></span> </form></td>
       {%else%}
-        <td><span class="glyphicon glyphicon-remove" id = "{{todo.id}}" aria-hidden="true"></span></td>
+        <td class= "todo {{todo.id}} "> <a href="{% url 'edit' %}?id={{todo.id}}">{{todo.todo_text}} </a></td>
+        <td><span class="glyphicon glyphicon-remove" id = "{{todo.id}}" aria-hidden="true"></span>{% csrf_token %}</td>
       {%endif%}
       <td>{{todo.todo_created}}</td>
       <td>
