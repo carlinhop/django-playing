@@ -21,7 +21,7 @@ $(document).ready(function(){
 
 });
 
-
+//Functions not in use
 
 function changeBackgroundOn(){$(this).css("background-color","#a2d3c2")}
 
@@ -44,22 +44,7 @@ function changeGlyphiconOn(element)
    
    $("."+element_id).css("text-decoration", "line-through");
    
-   // using jQuery
-   function getCookie(name) {
-       var cookieValue = null;
-       if (document.cookie && document.cookie != '') {
-           var cookies = document.cookie.split(';');
-           for (var i = 0; i < cookies.length; i++) {
-               var cookie = jQuery.trim(cookies[i]);
-               // Does this cookie string begin with the name we want?
-               if (cookie.substring(0, name.length + 1) == (name + '=')) {
-                   cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                   break;
-               }
-           }
-       }
-       return cookieValue;
-   }
+   //getCookie is defined in static/csrf.js
    var csrftoken = getCookie('csrftoken');
    
    $.ajax({type:"POST",url:"http://development-carlinhop.c9.io/home/todo-done",
@@ -73,22 +58,7 @@ function changeGlyphiconOff(element)
       var element_id = element.attr("id");
    
    $("."+element_id).css("text-decoration", "none");
- // using jQuery
-   function getCookie(name) {
-       var cookieValue = null;
-       if (document.cookie && document.cookie != '') {
-           var cookies = document.cookie.split(';');
-           for (var i = 0; i < cookies.length; i++) {
-               var cookie = jQuery.trim(cookies[i]);
-               // Does this cookie string begin with the name we want?
-               if (cookie.substring(0, name.length + 1) == (name + '=')) {
-                   cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                   break;
-               }
-           }
-       }
-       return cookieValue;
-   }
+   //getCookie is defined in static/csrf.js
    var csrftoken = getCookie('csrftoken');
    
    $.ajax({type:"POST",url:"http://development-carlinhop.c9.io/home/todo-done",

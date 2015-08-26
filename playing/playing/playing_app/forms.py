@@ -25,7 +25,7 @@ class CreateEasyTodoForm(forms.ModelForm):
 class RegisterForm(forms.Form):
     username = forms.CharField(label = "Username", max_length = 20)
     password = forms.CharField(label = "Password", max_length = 10, widget=forms.PasswordInput)
-    email = forms.CharField(label = "Email", max_length = 20, widget = forms.EmailInput)
+    email = forms.CharField(label = "Email", max_length = 60, widget = forms.EmailInput)
     
     
         
@@ -36,9 +36,9 @@ class LoginForm(forms.Form):
     
 class ResetPassword(forms.Form):
     password = forms.CharField(label = "Password", max_length = 10, widget=forms.PasswordInput)
-    email = forms.CharField(label = "Email", max_length = 20, widget=forms.HiddenInput)
+    email = forms.CharField(label = "Email", max_length = 60, widget=forms.HiddenInput)
     
     
 class GetResetPasswordLink(forms.Form):
-    email = forms.CharField(label = "Email", max_length = 20, widget = forms.EmailInput)
+    email = forms.CharField(label = "Email", max_length = 60, widget = forms.EmailInput)
     
