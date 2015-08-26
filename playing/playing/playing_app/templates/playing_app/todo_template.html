@@ -96,7 +96,7 @@
         <td class= "todo {{todo.id}} "> <a href="{% url 'edit' %}?id={{todo.id}}">{{todo.todo_text}} </a></td>
         <td><span class="glyphicon glyphicon-remove" id = "{{todo.id}}" aria-hidden="true"></span>{% csrf_token %}</td>
       {%endif%}
-      <td>{{todo.todo_created}}</td>
+      <td><form action = "." method = "POST" >{% csrf_token %} <div class="form-group"><input type="date" class="form-control todo_created"  id = "date+{{todo.id}}" name = "todo_created" value ="{{todo.todo_created|date:"Y-m-d"}}" ></div></form></td>
       <td>
       {% if todo.todo_responsibles.all%}
         {%for responsible in todo.todo_responsibles.all%}

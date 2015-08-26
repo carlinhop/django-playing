@@ -18,5 +18,6 @@ urlpatterns = [
     url(r'^reset-link$',views.get_reset_password_link, name = "reset_link"),
     url(r'^reset-password',views.reset_password, name = "reset_password"),
     url(r'^todo-done',views.todo_done_AJAX, name ="todo-done"),
+    url(r'^todo-date',views.todo_date_AJAX, name ="todo-date"),
     
 ]

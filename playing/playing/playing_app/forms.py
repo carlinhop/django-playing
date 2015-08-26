@@ -42,3 +42,4 @@ class ResetPassword(forms.Form):
 class GetResetPasswordLink(forms.Form):
     email = forms.CharField(label = "Email", max_length = 60, widget = forms.EmailInput)
     
+    

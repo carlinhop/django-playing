@@ -9,7 +9,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login,logout
 from django.core import serializers
 from .models import Todo
-from .forms import CreateTodoForm,CreateEasyTodoForm,LoginForm,RegisterForm,GetResetPasswordLink,ResetPassword
+from .forms import CreateTodoForm,CreateEasyTodoForm,LoginForm,RegisterForm,GetResetPasswordLink,ResetPassword,DateTypeInput
 
 
 
@@ -40,6 +40,7 @@ def todo_list_view(request):
         
         if user.is_authenticated():
             context["user"] = user.get_username()
+            
             return render(request, "playing_app/todo_template.html",context)
         else:
             return redirect("login")
@@ -253,5 +254,14 @@ def todo_done_AJAX(request):
             todo.save()
             return HttpResponse()
             
+def todo_date_AJAX(request):
+    if request.method == "POST":
+        id = (request.POST["id"])[5:]
+        date = request.POST["value"]
+        todo = Todo.objects.get(pk = id)
+        todo.todo_created = date
+        todo.save()
+        return HttpResponse()
+    
     
         

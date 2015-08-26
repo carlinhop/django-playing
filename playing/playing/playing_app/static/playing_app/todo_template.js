@@ -18,6 +18,10 @@ $(document).ready(function(){
    });
    $(".form-group").hover(editFieldOn,editFieldOff);
    $(".form-group").click(function(){$(this).prop('disabled', false)});
+   $(".todo_created").change(function()
+   {
+      saveDate($(this));
+   });
 
 });
 
@@ -77,3 +81,13 @@ function editFieldOff()
 }
 
 
+function saveDate(element)
+{
+   var element_id = element.attr("id");
+   var element_value = element.val()
+   //getCookie is defined in static/csrf.js
+   var csrftoken = getCookie('csrftoken');
+   
+   $.ajax({type:"POST",url:"http://development-carlinhop.c9.io/home/todo-date",
+   headers:{"X-CSRFToken":csrftoken},data:{id:element_id,value:element_value}}).done(function(){console.log("posted");});
+}
