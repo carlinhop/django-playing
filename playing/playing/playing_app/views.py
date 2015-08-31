@@ -237,9 +237,18 @@ def get_reset_password_link(request):
 def get_users(request):
     """This is for getting all the users in JSON format"""
     #You have to convert it to a list to avoid the 20 record limit
-    users = list(User.objects.values("username"))
-    
-    return JsonResponse(users, safe = False)
+    if request.GET["value"] !="":
+        usernames = User.objects.filter(username__istartswith = request.GET["value"]).values("username")
+        if usernames:
+            users = list(usernames)
+            
+            return JsonResponse(users, safe = False)
+        else:
+            users = [{"username":"Nothing to show"}]
+            return JsonResponse(users, safe = False)
+    else:
+        users = [{"username":"Nothing to show"}]
+        return JsonResponse(users, safe = False)
 
 def todo_done_AJAX(request):
     if request.method == "POST":

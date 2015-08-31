@@ -44,7 +44,7 @@
         {% csrf_token %}
         <div class="form-group has-feedback has-feedback-left">
           <i></i>
-          <input type="text" class="form-control search" placeholder="Add a new todo" name = "todo_text" >
+          <input type="text" class="form-control add" placeholder="Add a new todo" name = "todo_text" >
           
         </div>
         <button type="submit" class="btn btn-default">+</button>
@@ -97,15 +97,21 @@
         <td><span class="glyphicon glyphicon-remove" id = "{{todo.id}}" aria-hidden="true"></span>{% csrf_token %}</td>
       {%endif%}
       <td><form action = "." method = "POST" >{% csrf_token %} <div class="form-group"><input type="date" class="form-control todo_created"  id = "date+{{todo.id}}" name = "todo_created" value ="{{todo.todo_created|date:"Y-m-d"}}" ></div></form></td>
-      <td>
+      <td id = "search+{{todo.id}}">
+        <form action = "." method = "POST">
+          <input type="text" class = "responsibles-search" name="search+{{todo.id}}"/>
+        </form>
+       
       {% if todo.todo_responsibles.all%}
         {%for responsible in todo.todo_responsibles.all%}
         {{responsible.username}}
         {%endfor%}
       
       {%else%}
+      
       None
       {%endif%}
+
       </td>
       <td><form action="{% url 'delete' %}" method="POST" > <input type="hidden" name="id" value={{todo.id}}> {% csrf_token %}<button class="btn btn-default" type = "submit" >Delete</button></form></td>
       
@@ -130,6 +136,8 @@
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 <script src="{% static 'playing_app/csrf.js' %}"></script>
 <script src="{% static 'playing_app/todo_template.js' %}"> </script>
+
+<div class = "results"></div>
 
 </body>
 
