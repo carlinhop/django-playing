@@ -21,3 +21,19 @@ list-group-item active {vertical-align: middle}
 .vertical_line {border-left: thin solid white;}
 
 .done{text-decoration:line-through;}
+
+/* This centering has not been implemented*/
+.absoluteCenter { width:100px;
+                height:100px;
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                margin-top: -50px;
+                margin-left: -50px;
+                border:10px solid #ee3e64;}
+                
+.glyphicon-search {float: left;
+                  margin-right:5px;
+                  display:inline-block;
+}
+

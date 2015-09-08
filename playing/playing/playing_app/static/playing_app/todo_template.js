@@ -2,7 +2,7 @@
 $(document).ready(function(){
 
    //$(".todo").hover(changeBackgroundOn,changeBackgroundOoff);
-   
+   $(".glyphicon").css( "cursor", "pointer" );
    $(".glyphicon").click(function()
    {
       if ($(this).hasClass("glyphicon-remove"))
@@ -17,30 +17,52 @@ $(document).ready(function(){
       }
    });
    $(".add").hover(editFieldOn,editFieldOff);
+   
    $(".form-group").click(function(){$(this).prop('disabled', false)});
    $(".todo_created").change(function()
    {
       saveDate($(this));
    });
    $(".responsibles-search").keyup(function()
-   {  var name = $(this).attr("name");
+   {  
+      
+      var name = $(this).attr("name");
       var value = $(this)[0].value;
-      test(name,value);
+      var  x = this;
+      test(name,value,x);
+      
       
       
    });
+   $(".responsibles-search").focusout(function()
+   {
+         $(".responsibles-search").keyup(function()
+         {  
+      
+            var name = $(this).attr("name");
+            var value = $(this)[0].value;
+            var  x = this;
+            test(name,value,x);
+      
+      
+      
+         });
+   });
+   
 
 });
 
 //Functions not in use
 
-function changeBackgroundOn(){$(this).css("background-color","#a2d3c2")}
+function changeBackgroundOn(element){$(element).css("background-color","blue")}
 
-function changeBackgroundOoff(){$(this).css("background-color","white")}
+function changeBackgroundOff(element){$(element).css("background-color","#f7f7f9")}
 
 //This function gets all users from the db and shows them--Practicing ajax
-function test(name,value)
-{  
+function test(name,value,object)
+{
+   
+   
    $.get( "http://development-carlinhop.c9.io/home/users",{value:value}, function( data ) 
    {
    
@@ -48,10 +70,13 @@ function test(name,value)
       
          
          var usernames = data;
-   
-         usernames.forEach(function(username){console.log(username.username);});
-   
-      
+         $("option").remove();
+         if (usernames[0].username!=="Nothing to show")
+         {
+            usernames.forEach(function(username){$("#results").append("<option value ="+ username.username+">");});
+            
+         }
+         $(object).off();
    });
 }
 

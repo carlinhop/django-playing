@@ -55,7 +55,7 @@
       <ul class="nav navbar-nav navbar-right">
         <li class = "vertical_line"><a href="#">{{user}}</a></li>
         
-        <li ><a href="logout">Logout</a></li>
+        <li><a href="logout">Logout</a></li>
         
       </ul>
     </div><!-- /.navbar-collapse -->
@@ -98,8 +98,12 @@
       {%endif%}
       <td><form action = "." method = "POST" >{% csrf_token %} <div class="form-group"><input type="date" class="form-control todo_created"  id = "date+{{todo.id}}" name = "todo_created" value ="{{todo.todo_created|date:"Y-m-d"}}" ></div></form></td>
       <td id = "search+{{todo.id}}">
+        
+        
+        
         <form action = "." method = "POST">
-          <input type="text" class = "responsibles-search" name="search+{{todo.id}}"/>
+          <input type="text" class = "form-control responsibles-search"  list= "results" name="search+{{todo.id}}"/>
+          <datalist id= "results"></datalist>        
         </form>
        
       {% if todo.todo_responsibles.all%}
@@ -137,7 +141,7 @@
 <script src="{% static 'playing_app/csrf.js' %}"></script>
 <script src="{% static 'playing_app/todo_template.js' %}"> </script>
 
-<div class = "results"></div>
+
 
 </body>
 
