@@ -102,8 +102,9 @@
         
         
         <form action = "." method = "POST">
-          <input type="text" class = "form-control responsibles-search"  list= "results" name="search+{{todo.id}}"/>
-          <datalist id= "results"></datalist>        
+          {% csrf_token %}
+          <input type="text" id = "asignee+{{todo.id}}" class = "form-control responsibles-search"  list= "results" name="search+{{todo.id}}"/>
+          <datalist id= "results"></datalist>   
         </form>
        
       {% if todo.todo_responsibles.all%}

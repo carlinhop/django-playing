@@ -273,4 +273,13 @@ def todo_date_AJAX(request):
         return HttpResponse()
     
     
-        
+
+def todo_asignee_AJAX(request):
+    if request.method == "POST":
+        id = (request.POST["id"])[5:]
+        user_value = request.POST["value"]
+        todo = Todo.objects.get(pk = id)
+        user = User.objects.get(username = user_value)
+        todo.todo_resposibles.add(user)
+        todo.save()
+        return HttpResponse()

@@ -23,31 +23,30 @@ $(document).ready(function(){
    {
       saveDate($(this));
    });
-   $(".responsibles-search").keyup(function()
+   $(".responsibles-search").keyup(function(event)
    {  
+      var key_event=event.keyCode;
       
+      if (key_event!="40"){
       var name = $(this).attr("name");
       var value = $(this)[0].value;
       var  x = this;
+      
       test(name,value,x);
-      
+      }
       
       
    });
-   $(".responsibles-search").focusout(function()
+   
+   $(".responsibles-search").keydown(function(event)
    {
-         $(".responsibles-search").keyup(function()
-         {  
-      
-            var name = $(this).attr("name");
-            var value = $(this)[0].value;
-            var  x = this;
-            test(name,value,x);
-      
-      
-      
-         });
+      var key_event= event.keyCode;
+      if(key_event=="13")
+      {
+         saveAsignee($(this));
+      }
    });
+
    
 
 });
@@ -76,7 +75,7 @@ function test(name,value,object)
             usernames.forEach(function(username){$("#results").append("<option value ="+ username.username+">");});
             
          }
-         $(object).off();
+         
    });
 }
 
@@ -125,10 +124,21 @@ function editFieldOff()
 function saveDate(element)
 {
    var element_id = element.attr("id");
-   var element_value = element.val()
+   var element_value = element.val();
    //getCookie is defined in static/csrf.js
    var csrftoken = getCookie('csrftoken');
    
    $.ajax({type:"POST",url:"http://development-carlinhop.c9.io/home/todo-date",
+   headers:{"X-CSRFToken":csrftoken},data:{id:element_id,value:element_value}}).done(function(){console.log("posted");});
+}
+
+function saveAsignee(element)
+{
+   var element_id = element.attr("id");
+   var element_value = element.val();
+   //getCookie is defined in static/csrf.js
+   var csrftoken = getCookie('csrftoken');
+   
+   $.ajax({type:"POST",url:"http://development-carlinhop.c9.io/home/todo-asignee",
    headers:{"X-CSRFToken":csrftoken},data:{id:element_id,value:element_value}}).done(function(){console.log("posted");});
 }
