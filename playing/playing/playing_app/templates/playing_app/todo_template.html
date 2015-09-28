@@ -97,20 +97,21 @@
         <td><span class="glyphicon glyphicon-remove" id = "{{todo.id}}" aria-hidden="true"></span>{% csrf_token %}</td>
       {%endif%}
       <td><form action = "." method = "POST" >{% csrf_token %} <div class="form-group"><input type="date" class="form-control todo_created"  id = "date+{{todo.id}}" name = "todo_created" value ="{{todo.todo_created|date:"Y-m-d"}}" ></div></form></td>
-      <td id = "search+{{todo.id}}">
+      <td id = "search-{{todo.id}}">
         
         
         
-        <form action = "." method = "POST">
+        <form onsubmit="return false">
           {% csrf_token %}
-          <input type="text" id = "asignee+{{todo.id}}" class = "form-control responsibles-search"  list= "results" name="search+{{todo.id}}"/>
+          <input type="text" id = "asignee-{{todo.id}}" class = "form-control responsibles-search"  list= "results" name="search+{{todo.id}}"/>
           <datalist id= "results"></datalist>   
         </form>
-       
+      <div> 
       {% if todo.todo_responsibles.all%}
         {%for responsible in todo.todo_responsibles.all%}
         {{responsible.username}}
         {%endfor%}
+      </div>
       
       {%else%}
       

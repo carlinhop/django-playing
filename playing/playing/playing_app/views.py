@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect,get_object_or_404
-
+import json
 from django.conf import settings   
 from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
 from django.core.mail import send_mail
@@ -276,10 +276,24 @@ def todo_date_AJAX(request):
 
 def todo_asignee_AJAX(request):
     if request.method == "POST":
-        id = (request.POST["id"])[5:]
+        id = (request.POST["id"])[8:]
         user_value = request.POST["value"]
         todo = Todo.objects.get(pk = id)
         user = User.objects.get(username = user_value)
-        todo.todo_resposibles.add(user)
-        todo.save()
-        return HttpResponse()
+        todo_users = todo.todo_responsibles.all()
+        if user not in todo_users:
+            todo_users = todo.todo_responsibles.all()
+            try:
+                todo.todo_responsibles.add(*[user])
+                todo.save()
+                
+                return HttpResponse(json.dumps([user.username for user in todo_users]), content_type="application/json")
+                            
+            except:
+                pass
+        
+        else:
+            
+            return HttpResponse(json.dumps([user.username  for user in todo_users]), content_type="application/json")
+        
+        

@@ -26,8 +26,8 @@ $(document).ready(function(){
    $(".responsibles-search").keyup(function(event)
    {  
       var key_event=event.keyCode;
-      
-      if (key_event!="40"){
+      console.log(key_event);
+      if (key_event!="40" && key_event!="38"){
       var name = $(this).attr("name");
       var value = $(this)[0].value;
       var  x = this;
@@ -41,6 +41,7 @@ $(document).ready(function(){
    $(".responsibles-search").keydown(function(event)
    {
       var key_event= event.keyCode;
+      console.log(key_event);
       if(key_event=="13")
       {
          saveAsignee($(this));
@@ -140,5 +141,6 @@ function saveAsignee(element)
    var csrftoken = getCookie('csrftoken');
    
    $.ajax({type:"POST",url:"http://development-carlinhop.c9.io/home/todo-asignee",
-   headers:{"X-CSRFToken":csrftoken},data:{id:element_id,value:element_value}}).done(function(){console.log("posted");});
+   headers:{"X-CSRFToken":csrftoken},
+   data:{id:element_id,value:element_value}}).done(function(data){  var target =  $("#search"+element_id.substring(7)+" "+"div");target.empty();target.text(data);element.blur(); });
 }

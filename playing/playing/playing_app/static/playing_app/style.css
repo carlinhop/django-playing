@@ -6,6 +6,8 @@ body {font-family: 'Montserrat', sans-serif;}
         
 }
 
+
+
 .navbar-default .navbar-nav>li>a {color: white;}
 
 .navbar-default .navbar-brand {color:white;}
@@ -18,7 +20,7 @@ th {color: #a2d3c2;
 
 list-group-item active {vertical-align: middle}
 
-.vertical_line {border-left: thin solid white;}
+.vertical_line {border-left:  solid white; }
 
 .done{text-decoration:line-through;}
 
