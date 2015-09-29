@@ -6,7 +6,14 @@ body {font-family: 'Montserrat', sans-serif;}
         
 }
 
+.responsible{float:left;
+            margin-top:0.5%;
+            margin-right:0.3%;
+}
 
+col .resize-form{width:50%;
+        
+}
 
 .navbar-default .navbar-nav>li>a {color: white;}
 

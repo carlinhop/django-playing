@@ -47,6 +47,16 @@ $(document).ready(function(){
          saveAsignee($(this));
       }
    });
+   
+   $(".responsible").hover(function(element)
+                           {
+                              $(this).removeClass("btn-default").addClass("btn-danger");
+                           },
+                           
+                           function(element)
+                           {
+                              $(this).removeClass("btn-danger").addClass("btn-default");
+                           });
 
    
 
@@ -141,6 +151,21 @@ function saveAsignee(element)
    var csrftoken = getCookie('csrftoken');
    
    $.ajax({type:"POST",url:"http://development-carlinhop.c9.io/home/todo-asignee",
-   headers:{"X-CSRFToken":csrftoken},
-   data:{id:element_id,value:element_value}}).done(function(data){  var target =  $("#search"+element_id.substring(7)+" "+"div");target.empty();target.text(data);element.blur(); });
+   headers:{"X-CSRFToken":csrftoken},data:{id:element_id,value:element_value}}).done(function(data){  var target =  $("#search"+element_id.substring(7)+">.responsibles-space");target.empty();data.map(function(datum){target.append("<div class= 'responsible btn btn-default'>"+datum+"</div>");});element.blur();
+   
+   //Look for a way to remove code duplication in this example. Could be object oriented javascript?
+   
+   $(".responsible").hover(function(element)
+                           {
+                              $(this).removeClass("btn-default").addClass("btn-danger");
+                           },
+                           
+                           function(element)
+                           {
+                              $(this).removeClass("btn-danger").addClass("btn-default");
+                           }); 
+      
+   });
 }
+
+

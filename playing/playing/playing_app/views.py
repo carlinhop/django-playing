@@ -282,7 +282,7 @@ def todo_asignee_AJAX(request):
         user = User.objects.get(username = user_value)
         todo_users = todo.todo_responsibles.all()
         if user not in todo_users:
-            todo_users = todo.todo_responsibles.all()
+            todo_users = todo.todo_responsibles.order_by("username").all()
             try:
                 todo.todo_responsibles.add(*[user])
                 todo.save()
