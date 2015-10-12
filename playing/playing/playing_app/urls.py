@@ -20,5 +20,6 @@ urlpatterns = [
     url(r'^todo-done',views.todo_done_AJAX, name ="todo-done"),
     url(r'^todo-date',views.todo_date_AJAX, name ="todo-date"),
     url(r'^todo-asignee',views.todo_asignee_AJAX, name ="todo-asignee"),
+    url(r'^remove-asignee',views.remove_asignee_AJAX, name ="remove-asignee"),
     
 ]

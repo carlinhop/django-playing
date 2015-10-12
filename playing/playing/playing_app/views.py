@@ -281,19 +281,38 @@ def todo_asignee_AJAX(request):
         todo = Todo.objects.get(pk = id)
         user = User.objects.get(username = user_value)
         todo_users = todo.todo_responsibles.all()
+        
         if user not in todo_users:
             todo_users = todo.todo_responsibles.order_by("username").all()
             try:
                 todo.todo_responsibles.add(*[user])
                 todo.save()
                 
-                return HttpResponse(json.dumps([user.username for user in todo_users]), content_type="application/json")
+                #data = {"users": [user.username  for user in todo_users], "todo_id" : request.POST["todo_id"]}
+                return HttpResponse(json.dumps([user.username  for user in todo_users]), content_type="application/json")
                             
             except:
                 pass
         
         else:
-            
+            #data = {"users": [user.username  for user in todo_users], "todo_id" : request.POST["todo_id"]}
             return HttpResponse(json.dumps([user.username  for user in todo_users]), content_type="application/json")
         
+
+def remove_asignee_AJAX(request):
+    if request.method == "POST":
+        username = request.POST["username"]
+        todo_id = (request.POST["todo_id"])[12:]
+        user = User.objects.get(username = username)
+        todo = Todo.objects.get(pk = todo_id )
+        print(user,todo.id)
         
+        try:
+            todo.todo_responsibles.remove(user)
+            todo.save()
+            
+        except Exception as e: print(e)
+        
+        todo_users = todo.todo_responsibles.all() 
+        data = {"users": [user.username  for user in todo_users], "todo_id" : request.POST["todo_id"]}
+        return HttpResponse(json.dumps(data), content_type="application/json")

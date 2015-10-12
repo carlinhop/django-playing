@@ -57,8 +57,19 @@ $(document).ready(function(){
                            {
                               $(this).removeClass("btn-danger").addClass("btn-default");
                            });
+                           
+                           
 
-   
+   $(".responsible").click(function()
+   {
+      var asigneeName = $(this).val();
+      var todo_id = $(this).attr("id");
+      console.log(todo_id);
+      $(this).addClass("animated zoomOut");
+      
+      removeAsignee(asigneeName,todo_id);
+       
+   });
 
 });
 
@@ -147,11 +158,12 @@ function saveAsignee(element)
 {
    var element_id = element.attr("id");
    var element_value = element.val();
+   var element_id_number = element_id.substr(6,-1);
    //getCookie is defined in static/csrf.js
    var csrftoken = getCookie('csrftoken');
    
    $.ajax({type:"POST",url:"http://development-carlinhop.c9.io/home/todo-asignee",
-   headers:{"X-CSRFToken":csrftoken},data:{id:element_id,value:element_value}}).done(function(data){  var target =  $("#search"+element_id.substring(7)+">.responsibles-space");target.empty();data.map(function(datum){target.append("<div class= 'responsible btn btn-default'>"+datum+"</div>");});element.blur();
+   headers:{"X-CSRFToken":csrftoken},data:{id:element_id,value:element_value}}).done(function(data){console.log(data);var target =  $("#search"+element_id.substring(7)+">.responsibles-space");target.empty();data.map(function(datum){target.append(" <input type='submit' id ='"+"responsible-"+element_id_number+"' class= 'responsible btn btn-default' value ='"+datum+"'/>");});element.blur();
    
    //Look for a way to remove code duplication in this example. Could be object oriented javascript?
    
@@ -164,8 +176,34 @@ function saveAsignee(element)
                            {
                               $(this).removeClass("btn-danger").addClass("btn-default");
                            }); 
+                           
+   $(".responsible").click(function(){$(this).addClass("animated zoomOut");
+      
+      var asigneeName = $(this).val();
+      var todo_id = $(this).attr("id");
+      console.log(todo_id);
+      
+      
+      removeAsignee(asigneeName,todo_id);
+   });                        
       
    });
+   
+   
+   
+   
+   
+
+   
 }
 
 
+function removeAsignee(element,todo_id)
+{
+   //getCookie is defined in static/csrf.js
+   var csrftoken = getCookie('csrftoken');
+   
+   $.ajax({type:"POST",url:"http://development-carlinhop.c9.io/home/remove-asignee",
+   headers:{"X-CSRFToken":csrftoken},data:{"username":element,"todo_id":todo_id}}).done(function(data){console.log(data);});
+   
+}
