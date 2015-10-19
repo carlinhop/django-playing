@@ -1,5 +1,83 @@
 
 $(document).ready(function(){
+   
+   //Defining functions
+   
+   
+   function btnDanger(event)
+                           {
+                              $(this).removeClass("btn-default").addClass("btn-danger");
+                              
+                           }
+   
+   
+   
+   function btnDefault(event)
+                           {
+                              $(this).removeClass("btn-danger").addClass("btn-default");
+                              
+                           }
+   
+ 
+ function removeAsignee(element,todo_id)
+{
+   //getCookie is defined in static/csrf.js
+   var csrftoken = getCookie('csrftoken');
+   
+   $.ajax({type:"POST",url:"http://development-carlinhop.c9.io/home/remove-asignee",
+   headers:{"X-CSRFToken":csrftoken},data:{"username":element,"todo_id":todo_id}}).done(function(data){console.log(data);});
+   
+}
+ 
+ 
+ 
+ 
+   
+   
+function saveAsignee(element)
+{
+   var element_id = element.attr("id");
+   var element_value = element.val();
+   var element_id_number = element_id.substr(8,element_id.length-1);
+   //getCookie is defined in static/csrf.js
+   var csrftoken = getCookie('csrftoken');
+   
+   $.ajax({type:"POST",url:"http://development-carlinhop.c9.io/home/todo-asignee",
+   headers:{"X-CSRFToken":csrftoken},data:{id:element_id,value:element_value}}).done(function(data){console.log(data);var target =  $("#search"+element_id.substring(7)+">.responsibles-space");target.empty();data.map(function(datum){target.append(" <input type='submit' id ='"+"responsible-"+element_id_number+"' class= 'responsible btn btn-default' value ='"+datum+"'/>");});element.blur();
+   
+   
+   
+   $(".responsible").hover(btnDanger,btnDefault); 
+                           
+   $(".responsible").click(function(){
+      
+      $(this).addClass("animated zoomOut");
+      var asigneeName = $(this).val();
+      var todo_id = $(this).attr("id");
+      console.log(todo_id);
+      
+      
+      removeAsignee(asigneeName,todo_id);
+   });                        
+      
+   });
+   
+   
+   
+   
+   
+
+   
+}
+
+
+
+
+
+
+
+
+
 
    //$(".todo").hover(changeBackgroundOn,changeBackgroundOoff);
    $(".glyphicon").css( "cursor", "pointer" );
@@ -48,15 +126,7 @@ $(document).ready(function(){
       }
    });
    
-   $(".responsible").hover(function(element)
-                           {
-                              $(this).removeClass("btn-default").addClass("btn-danger");
-                           },
-                           
-                           function(element)
-                           {
-                              $(this).removeClass("btn-danger").addClass("btn-default");
-                           });
+   $(".responsible").hover(btnDanger,btnDefault);
                            
                            
 
@@ -70,16 +140,9 @@ $(document).ready(function(){
       removeAsignee(asigneeName,todo_id);
        
    });
-
-});
-
-//Functions not in use
-
-function changeBackgroundOn(element){$(element).css("background-color","blue")}
-
-function changeBackgroundOff(element){$(element).css("background-color","#f7f7f9")}
-
-//This function gets all users from the db and shows them--Practicing ajax
+   
+   
+   //This function gets all users from the db and shows them--Practicing ajax
 function test(name,value,object)
 {
    
@@ -154,56 +217,16 @@ function saveDate(element)
    headers:{"X-CSRFToken":csrftoken},data:{id:element_id,value:element_value}}).done(function(){console.log("posted");});
 }
 
-function saveAsignee(element)
-{
-   var element_id = element.attr("id");
-   var element_value = element.val();
-   var element_id_number = element_id.substr(6,-1);
-   //getCookie is defined in static/csrf.js
-   var csrftoken = getCookie('csrftoken');
-   
-   $.ajax({type:"POST",url:"http://development-carlinhop.c9.io/home/todo-asignee",
-   headers:{"X-CSRFToken":csrftoken},data:{id:element_id,value:element_value}}).done(function(data){console.log(data);var target =  $("#search"+element_id.substring(7)+">.responsibles-space");target.empty();data.map(function(datum){target.append(" <input type='submit' id ='"+"responsible-"+element_id_number+"' class= 'responsible btn btn-default' value ='"+datum+"'/>");});element.blur();
-   
-   //Look for a way to remove code duplication in this example. Could be object oriented javascript?
-   
-   $(".responsible").hover(function(element)
-                           {
-                              $(this).removeClass("btn-default").addClass("btn-danger");
-                           },
-                           
-                           function(element)
-                           {
-                              $(this).removeClass("btn-danger").addClass("btn-default");
-                           }); 
-                           
-   $(".responsible").click(function(){$(this).addClass("animated zoomOut");
-      
-      var asigneeName = $(this).val();
-      var todo_id = $(this).attr("id");
-      console.log(todo_id);
-      
-      
-      removeAsignee(asigneeName,todo_id);
-   });                        
-      
-   });
-   
-   
-   
-   
-   
-
-   
-}
 
 
-function removeAsignee(element,todo_id)
-{
-   //getCookie is defined in static/csrf.js
-   var csrftoken = getCookie('csrftoken');
+
+
+
    
-   $.ajax({type:"POST",url:"http://development-carlinhop.c9.io/home/remove-asignee",
-   headers:{"X-CSRFToken":csrftoken},data:{"username":element,"todo_id":todo_id}}).done(function(data){console.log(data);});
    
-}
+   
+//end
+});
+
+
+
