@@ -159,7 +159,7 @@ function changeGlyphiconOn(element)
    //getCookie is defined in static/csrf.js
    var csrftoken = getCookie('csrftoken');
    
-   $.ajax({type:"POST",url:"http://development-carlinhop.c9.io/todo-done",
+   $.ajax({type:"POST",url:"http://development-carlinhop.c9.io/home/todo-done",
    headers:{"X-CSRFToken":csrftoken},data:{id:element_id}}).done(function(){console.log("posted");});
 }
 
@@ -173,7 +173,7 @@ function changeGlyphiconOff(element)
    //getCookie is defined in static/csrf.js
    var csrftoken = getCookie('csrftoken');
    
-   $.ajax({type:"POST",url:"http://development-carlinhop.c9.io//home/todo-done",
+   $.ajax({type:"POST",url:"http://development-carlinhop.c9.io/home/todo-done",
    headers:{"X-CSRFToken":csrftoken},data:{id:element_id}}).done(function(){console.log("posted");});   
    
 }
@@ -196,7 +196,7 @@ function saveDate(element)
    //getCookie is defined in static/csrf.js
    var csrftoken = getCookie('csrftoken');
    
-   $.ajax({type:"POST",url:"http://development-carlinhop.c9.io/todo-date",
+   $.ajax({type:"POST",url:"http://development-carlinhop.c9.io/home/todo-date",
    headers:{"X-CSRFToken":csrftoken},data:{id:element_id,value:element_value}}).done(function(){console.log("posted");});
 }
 
