@@ -25,14 +25,11 @@ $(document).ready(function(){
    var csrftoken = getCookie('csrftoken');
    
    $.ajax({type:"POST",url:"http://development-carlinhop.c9.io/home/remove-asignee",
-   headers:{"X-CSRFToken":csrftoken},data:{"username":element,"todo_id":todo_id}}).done(function(data){console.log(data);});
+   headers:{"X-CSRFToken":csrftoken},data:{"username":element,"todo_id":todo_id}}).done(function(data){console.log("posted");});
    
 }
  
  
- 
- 
-   
    
 function saveAsignee(element)
 {
@@ -43,7 +40,7 @@ function saveAsignee(element)
    var csrftoken = getCookie('csrftoken');
    
    $.ajax({type:"POST",url:"http://development-carlinhop.c9.io/home/todo-asignee",
-   headers:{"X-CSRFToken":csrftoken},data:{id:element_id,value:element_value}}).done(function(data){console.log(data);var target =  $("#search"+element_id.substring(7)+">.responsibles-space");target.empty();data.map(function(datum){target.append(" <input type='submit' id ='"+"responsible-"+element_id_number+"' class= 'responsible btn btn-default' value ='"+datum+"'/>");});element.blur();
+   headers:{"X-CSRFToken":csrftoken},data:{id:element_id,value:element_value}}).done(function(data){var target =  $("#search"+element_id.substring(7)+">.responsibles-space");target.empty();data.map(function(datum){target.append(" <input type='submit' id ='"+"responsible-"+element_id_number+"' class= 'responsible btn btn-default' value ='"+datum+"'/>");});element.blur();
    
    
    
@@ -54,7 +51,7 @@ function saveAsignee(element)
       $(this).addClass("animated zoomOut");
       var asigneeName = $(this).val();
       var todo_id = $(this).attr("id");
-      console.log(todo_id);
+      
       
       
       removeAsignee(asigneeName,todo_id);
@@ -63,23 +60,9 @@ function saveAsignee(element)
    });
    
    
-   
-   
-   
-
-   
 }
 
 
-
-
-
-
-
-
-
-
-   //$(".todo").hover(changeBackgroundOn,changeBackgroundOoff);
    $(".glyphicon").css( "cursor", "pointer" );
    $(".glyphicon").click(function()
    {
@@ -104,7 +87,7 @@ function saveAsignee(element)
    $(".responsibles-search").keyup(function(event)
    {  
       var key_event=event.keyCode;
-      console.log(key_event);
+      
       if (key_event!="40" && key_event!="38"){
       var name = $(this).attr("name");
       var value = $(this)[0].value;
@@ -119,7 +102,7 @@ function saveAsignee(element)
    $(".responsibles-search").keydown(function(event)
    {
       var key_event= event.keyCode;
-      console.log(key_event);
+      
       if(key_event=="13")
       {
          saveAsignee($(this));
@@ -134,7 +117,7 @@ function saveAsignee(element)
    {
       var asigneeName = $(this).val();
       var todo_id = $(this).attr("id");
-      console.log(todo_id);
+      
       $(this).addClass("animated zoomOut");
       
       removeAsignee(asigneeName,todo_id);
@@ -176,7 +159,7 @@ function changeGlyphiconOn(element)
    //getCookie is defined in static/csrf.js
    var csrftoken = getCookie('csrftoken');
    
-   $.ajax({type:"POST",url:"http://development-carlinhop.c9.io/home/todo-done",
+   $.ajax({type:"POST",url:"http://development-carlinhop.c9.io/todo-done",
    headers:{"X-CSRFToken":csrftoken},data:{id:element_id}}).done(function(){console.log("posted");});
 }
 
@@ -190,7 +173,7 @@ function changeGlyphiconOff(element)
    //getCookie is defined in static/csrf.js
    var csrftoken = getCookie('csrftoken');
    
-   $.ajax({type:"POST",url:"http://development-carlinhop.c9.io/home/todo-done",
+   $.ajax({type:"POST",url:"http://development-carlinhop.c9.io//home/todo-done",
    headers:{"X-CSRFToken":csrftoken},data:{id:element_id}}).done(function(){console.log("posted");});   
    
 }
@@ -213,7 +196,7 @@ function saveDate(element)
    //getCookie is defined in static/csrf.js
    var csrftoken = getCookie('csrftoken');
    
-   $.ajax({type:"POST",url:"http://development-carlinhop.c9.io/home/todo-date",
+   $.ajax({type:"POST",url:"http://development-carlinhop.c9.io/todo-date",
    headers:{"X-CSRFToken":csrftoken},data:{id:element_id,value:element_value}}).done(function(){console.log("posted");});
 }
 

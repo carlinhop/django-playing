@@ -305,7 +305,7 @@ def remove_asignee_AJAX(request):
         todo_id = (request.POST["todo_id"])[12:]
         user = User.objects.get(username = username)
         todo = Todo.objects.get(pk = todo_id )
-        print(user,todo.id)
+        
         
         try:
             todo.todo_responsibles.remove(user)
