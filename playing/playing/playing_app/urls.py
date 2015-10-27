@@ -6,7 +6,7 @@ from . import views
 urlpatterns = [
     
     url(r'^list$', views.todo_list_view, name = "list"),
-    url(r'^create$', views.todo_create, name = "create"),
+    
     url(r'^edit$', views.todo_edit, name = "edit"),
     url(r'^delete',views.todo_delete, name = "delete"),
     

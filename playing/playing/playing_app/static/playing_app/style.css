@@ -27,7 +27,14 @@ th {color: #a2d3c2;
 
 list-group-item active {vertical-align: middle}
 
-.vertical_line {border-left:  solid white; }
+
+.vertical_line {border-left:  solid white;
+                }
+
+
+
+
+
 
 .done{text-decoration:line-through;}
 
@@ -44,5 +51,11 @@ list-group-item active {vertical-align: middle}
 .glyphicon-search {float: left;
                   margin-right:5px;
                   display:inline-block;
+}
+
+
+.controls label{display:inline-block;
+                margin-left:30px;
+    
 }
 

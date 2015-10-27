@@ -29,7 +29,7 @@ def todo_list_view(request):
                 todo.save()
                 return redirect("list")
             else:
-                return HttpResponse("not working")
+                return redirect("list")
             
                 
     else:
@@ -288,14 +288,14 @@ def todo_asignee_AJAX(request):
                 todo.todo_responsibles.add(*[user])
                 todo.save()
                 
-                #data = {"users": [user.username  for user in todo_users], "todo_id" : request.POST["todo_id"]}
+                
                 return HttpResponse(json.dumps([user.username  for user in todo_users]), content_type="application/json")
                             
             except:
                 pass
         
         else:
-            #data = {"users": [user.username  for user in todo_users], "todo_id" : request.POST["todo_id"]}
+            
             return HttpResponse(json.dumps([user.username  for user in todo_users]), content_type="application/json")
         
 

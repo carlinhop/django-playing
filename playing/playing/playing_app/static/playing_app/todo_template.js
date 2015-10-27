@@ -63,68 +63,7 @@ function saveAsignee(element)
 }
 
 
-   $(".glyphicon").css( "cursor", "pointer" );
-   $(".glyphicon").click(function()
-   {
-      if ($(this).hasClass("glyphicon-remove"))
-      {
-         changeGlyphiconOn($(this));
-         
-      }
-      
-      else
-      {
-         changeGlyphiconOff($(this));
-      }
-   });
-   $(".add").hover(editFieldOn,editFieldOff);
-   
-   $(".form-group").click(function(){$(this).prop('disabled', false)});
-   $(".todo_created").change(function()
-   {
-      saveDate($(this));
-   });
-   $(".responsibles-search").keyup(function(event)
-   {  
-      var key_event=event.keyCode;
-      
-      if (key_event!="40" && key_event!="38"){
-      var name = $(this).attr("name");
-      var value = $(this)[0].value;
-      var  x = this;
-      
-      test(name,value,x);
-      }
-      
-      
-   });
-   
-   $(".responsibles-search").keydown(function(event)
-   {
-      var key_event= event.keyCode;
-      
-      if(key_event=="13")
-      {
-         saveAsignee($(this));
-      }
-   });
-   
-   $(".responsible").hover(btnDanger,btnDefault);
-                           
-                           
 
-   $(".responsible").click(function()
-   {
-      var asigneeName = $(this).val();
-      var todo_id = $(this).attr("id");
-      
-      $(this).addClass("animated zoomOut");
-      
-      removeAsignee(asigneeName,todo_id);
-       
-   });
-   
-   
    //This function gets all users from the db and shows them--Practicing ajax
 function test(name,value,object)
 {
@@ -204,10 +143,68 @@ function saveDate(element)
 
 
 
+   $(".glyphicon").css( "cursor", "pointer" );
+   $(".glyphicon").click(function()
+   {
+      if ($(this).hasClass("glyphicon-remove"))
+      {
+         changeGlyphiconOn($(this));
+         
+      }
+      
+      else
+      {
+         changeGlyphiconOff($(this));
+      }
+   });
+   $(".add").hover(editFieldOn,editFieldOff);
+   
+   $(".form-group").click(function(){$(this).prop('disabled', false)});
+   $(".todo_created").change(function()
+   {
+      saveDate($(this));
+   });
+   $(".responsibles-search").keyup(function(event)
+   {  
+      var key_event=event.keyCode;
+      
+      if (key_event!="40" && key_event!="38"){
+      var name = $(this).attr("name");
+      var value = $(this)[0].value;
+      var  x = this;
+      
+      test(name,value,x);
+      }
+      
+      
+   });
+   
+   $(".responsibles-search").keydown(function(event)
+   {
+      var key_event= event.keyCode;
+      
+      if(key_event=="13")
+      {
+         saveAsignee($(this));
+      }
+   });
+   
+   $(".responsible").hover(btnDanger,btnDefault);
+                           
+   $(".delete").hover(btnDanger,btnDefault);                        
 
+   $(".responsible").click(function()
+   {
+      var asigneeName = $(this).val();
+      var todo_id = $(this).attr("id");
+      
+      $(this).addClass("animated zoomOut");
+      
+      removeAsignee(asigneeName,todo_id);
+       
+   });
    
-   
-   
+
 //end
 });
 
